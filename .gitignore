@@ -1,0 +1,19 @@
+# ===== Build folders =====
+build/
+Build/
+Debug/
+Release/
+out/
+
+# ===== Object files =====
+*.o
+*.obj
+*.d
+*.su
+
+# ===== Binary outputs =====
+*.elf
+*.bin
+*.hex
+*.map
+*.axf
