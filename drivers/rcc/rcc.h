@@ -15,7 +15,7 @@ typedef struct
     volatile uint32_t CSR;
 } RCC_TypeDef;
 
-#define RCC ((RCC_TypeDef *)0x40021400)
+#define RCC ((RCC_TypeDef *)0x40021000)
 
 //=============== GPIO =======================
 typedef enum
@@ -29,6 +29,6 @@ typedef enum
     RCC_GPIOG
 } RCC_GPIO_t;
 
-void RCC_EnableGPIO(RCC_GPIO_t gpio);
+void RCC_Enable_GPIO(RCC_GPIO_t gpio);
 
 #endif
