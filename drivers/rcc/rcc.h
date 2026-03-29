@@ -1,6 +1,7 @@
 #ifndef RCC_H
 #define RCC_H
 
+#include <stdint.h>
 typedef struct
 {
     volatile uint32_t CR;

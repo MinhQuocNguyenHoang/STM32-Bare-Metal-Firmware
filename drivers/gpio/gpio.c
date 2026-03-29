@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "gpio.h"
 
-void writePin(GPIO_TypeDef *gpio, uint8_t pin, uint32_t state)
+void writePin(GPIO_TypeDef *gpio, uint8_t state, uint8_t pin)
 {
     if (state)
     {

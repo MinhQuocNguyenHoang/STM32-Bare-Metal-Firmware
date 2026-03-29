@@ -1,6 +1,8 @@
 #ifndef GPIO_H
 #define GPIO_H
 
+#include <stdint.h>
+
 //============= GPIO ===================
 typedef enum
 {
@@ -41,6 +43,6 @@ typedef struct
 void writePin(GPIO_TypeDef *gpio, uint8_t state, uint8_t pin);
 int readPin(GPIO_TypeDef *gpio, uint8_t pin);
 void togglePin(GPIO_TypeDef *gpio, uint8_t pin);
-void pinMode(GPIO_TypeDef *gpio, uint8_t mode, uint8_t pin);
+void pinMode(GPIO_TypeDef *gpio, GPIO_Mode mode, uint8_t pin);
 
 #endif
