@@ -1,26 +1,26 @@
-ENTRY(Reset_Handler)
+ENTRY(Reset_Handler);
 
 _estack = ORIGIN(RAM)+LENGTH(RAM);
 
-__max_heap_size = 0x400;
-__max_stack_size = 0x200;
+_max_heap_size = 0x400;
+_max_stack_size = 0x100;
 
 MEMORY
 {
-    RAM(xrw): ORIGIN=0x20000000, LENGTH=64K
-    FLASH(rx): ORIGIN=0x08000000, LENGTH=512K
+    RAM (xrw) : ORIGIN = 0x20000000, LENGTH = 64K
+    FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 256K
 }
 
 
 SECTIONS {
-    .vectors:
+    .isr_vectors : 
     {
         . = ALIGN(4); /* aligns the current location (.) to a 4-byte boundary by adding */
-        KEEP(*(.vectors)) /* This line of code uses the KEEP command to prevent the `.vectors` symbols from being optimized. */
+        KEEP(*(.isr_vectors)) /* This line of code uses the KEEP command to prevent the `.vectors` symbols from being optimized. */
         . = ALIGN(4);
-    }>FLASH
+    } >FLASH
 
-    .text:
+    .text :
     {
         . = ALIGN(4);
         *(.text)
@@ -38,17 +38,17 @@ SECTIONS {
 
         . = ALIGN(4);
         _etext = .;  /* end of text section (used for copying .data from flash to RAM) */
-    }>FLASH
+    } >FLASH
 
-    .rodata:
+    .rodata :
     {
         . = ALIGN(4);
         *(.rodata)
         *(.rodata*)
         . = ALIGN(4);
-    }>FLASH
+    } >FLASH
 
-    .ARM.extab (READONLY):
+        .ARM.extab (READONLY):
     {
         . = ALIGN(4);
         *(.ARM.extab* .gnu.linkonce.armextab.*)
@@ -94,37 +94,37 @@ SECTIONS {
     } >FLASH
 
     _sidata = LOADADDR(.data);
-    .data:
+    .data : 
     {
         . = ALIGN(4);
-        _sdata=.; /* defined the start address data*/
+        _sdata = .; /* defined the start address data*/
         *(.data)
         *(.data*)
         . = ALIGN(4);
 
         _edata = .; /* defined the end address data */
-    }>RAM AT>FLASH
+    } >RAM AT >FLASH
 
     . = ALIGN(4);
-    .bss:
+    .bss : 
     {
-        _sbss=.;
+        _sbss = .;
         __bss_start__ = _sbss;
         *(.bss)
         *(.bss*)
         *(COMMON)
-        . = ALIGN(4)
-        _ebss=.;
+        . = ALIGN(4);
+        _ebss = .;
         __bss_end__ = _ebss;
-    }>RAM
+    } >RAM
 
-    .user_heap_stack:
+    .user_heap_stack : 
     {
         . = ALIGN(8);
-        PROVIDE(end = .)
-        PROVIDE(_end = .)
-        . = . + __max_stack_size
-        . = . + __max_heap_size
+        PROVIDE(end = .);
+        PROVIDE(_end = .);
+        . = . + _max_stack_size;
+        . = . + _max_heap_size;
         . = ALIGN(8);
-    }>RAM
+    } >RAM
 }

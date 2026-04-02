@@ -35,6 +35,6 @@ void pinMode(GPIO_TypeDef *gpio, GPIO_Mode mode, uint8_t pin)
         gpio->CRL &= ~(0xF << (pin * 4));
         gpio->CRL |= (mode << (pin * 4));
     }
-    gpio->CRL &= ~(0xF << (pin * 4));
-    gpio->CRH |= (mode << (pin * 4));
+    gpio->CRH &= ~(0xF << ((pin - 8) * 4));
+    gpio->CRH |= (mode << ((pin - 8) * 4));
 }
